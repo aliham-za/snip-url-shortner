@@ -30,7 +30,8 @@ class RedirectsController < ApplicationController
   end
 
   def extract_subdomain
-    sub = request.subdomain
+    tld_length = ENV.fetch("TLD_LENGTH", 1).to_i
+    sub = request.subdomain(tld_length)
     sub.present? ? sub : nil
   end
 end
