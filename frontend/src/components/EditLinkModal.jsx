@@ -45,7 +45,6 @@ export default function EditLinkModal({ isOpen, link, onClose, onUpdated }) {
       const payload = { ...form }
       if (!payload.custom_slug) payload.custom_slug = ''
       if (!payload.expires_at) payload.expires_at = null
-      if (!payload.subdomain) delete payload.subdomain
       const { data } = await linksAPI.update(link.id, payload)
       toast.success('Link updated!')
       onUpdated(data)

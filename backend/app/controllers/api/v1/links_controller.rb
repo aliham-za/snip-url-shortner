@@ -53,6 +53,18 @@ module Api
       end
 
       def update
+        if params.key?(:subdomain)
+          if params[:subdomain].present?
+            subdomain = current_user.subdomains.find_by(name: params[:subdomain])
+            unless subdomain
+              render json: { error: "Subdomain '#{params[:subdomain]}' not found" }, status: :unprocessable_entity and return
+            end
+            @link.subdomain = subdomain
+          else
+            @link.subdomain = nil
+          end
+        end
+
         if @link.update(update_params)
           render json: ShortLinkBlueprint.render_as_hash(@link.reload, view: :with_stats)
         else
