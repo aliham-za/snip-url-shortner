@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Claude Code
+.claude/
+
+# Environment files
+.env
+.env.*
+!.env*.erb
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sw?
+
+# Tool versions
+.tool-versions
+
+# Logs
+*.log
+
+# Backend
+backend/log/*
+backend/tmp/*
+backend/storage/*
+backend/config/master.key
+backend/.bundle
+
+# Frontend
+frontend/dist/
+frontend/dist-ssr/
