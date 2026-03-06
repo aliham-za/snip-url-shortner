@@ -8,11 +8,7 @@ module Api
           link = current_user.short_links.new(link_params)
 
           if params[:subdomain].present?
-            subdomain = current_user.subdomains.find_or_create_by(name: params[:subdomain].to_s.strip.downcase)
-            unless subdomain.persisted?
-              render json: { errors: subdomain.errors.full_messages }, status: :unprocessable_entity and return
-            end
-            link.subdomain = subdomain
+            render json: { error: "Custom subdomains are coming soon" }, status: :unprocessable_entity and return
           end
 
           if link.save

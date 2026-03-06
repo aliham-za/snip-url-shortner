@@ -38,11 +38,7 @@ module Api
         link = current_user.short_links.build(link_params)
 
         if params[:subdomain].present?
-          subdomain = current_user.subdomains.find_by(name: params[:subdomain])
-          unless subdomain
-            render json: { error: "Subdomain '#{params[:subdomain]}' not found or does not belong to you" }, status: :unprocessable_entity and return
-          end
-          link.subdomain = subdomain
+          render json: { error: "Custom subdomains are coming soon" }, status: :unprocessable_entity and return
         end
 
         if link.save
@@ -53,16 +49,8 @@ module Api
       end
 
       def update
-        if params.key?(:subdomain)
-          if params[:subdomain].present?
-            subdomain = current_user.subdomains.find_by(name: params[:subdomain])
-            unless subdomain
-              render json: { error: "Subdomain '#{params[:subdomain]}' not found" }, status: :unprocessable_entity and return
-            end
-            @link.subdomain = subdomain
-          else
-            @link.subdomain = nil
-          end
+        if params[:subdomain].present?
+          render json: { error: "Custom subdomains are coming soon" }, status: :unprocessable_entity and return
         end
 
         cleaned = update_params.to_h

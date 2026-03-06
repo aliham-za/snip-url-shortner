@@ -95,26 +95,16 @@ export default function EditLinkModal({ isOpen, link, onClose, onUpdated }) {
               maxLength={20}
             />
           </div>
-          {subdomains.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Subdomain (optional)</label>
-              <select
-                value={form.subdomain}
-                onChange={(e) => setForm({ ...form, subdomain: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white"
-              >
-                <option value="">None (default)</option>
-                {subdomains.map((sub) => (
-                  <option key={sub.id} value={sub.name}>{sub.name}</option>
-                ))}
-              </select>
-              {form.subdomain && (
-                <p className="text-xs text-gray-400 mt-1">
-                  URL will be: <code className="text-indigo-500">{form.subdomain}.short.ly/slug</code>
-                </p>
-              )}
-            </div>
-          )}
+          <div>
+            <label className="block text-sm font-medium text-gray-400 mb-1">Subdomain (coming soon)</label>
+            <select
+              disabled
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg bg-gray-50 text-gray-400 cursor-not-allowed"
+            >
+              <option>Coming soon</option>
+            </select>
+            <p className="text-xs text-gray-400 mt-1">Custom subdomain support is coming soon.</p>
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Expires at (optional)
