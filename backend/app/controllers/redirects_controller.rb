@@ -15,23 +15,9 @@ class RedirectsController < ApplicationController
   private
 
   def resolve_link
-    subdomain_name = extract_subdomain
+    code = params[:short_code]
 
-    if subdomain_name.present?
-      subdomain = Subdomain.find_by(name: subdomain_name)
-      return nil unless subdomain
-
-      ShortLink.find_by(short_code: params[:short_code], subdomain: subdomain) ||
-        ShortLink.find_by(custom_slug: params[:short_code], subdomain: subdomain)
-    else
-      ShortLink.find_by(short_code: params[:short_code], subdomain_id: nil) ||
-        ShortLink.find_by(custom_slug: params[:short_code], subdomain_id: nil)
-    end
-  end
-
-  def extract_subdomain
-    tld_length = ENV.fetch("TLD_LENGTH", 1).to_i
-    sub = request.subdomain(tld_length)
-    sub.present? ? sub : nil
+    ShortLink.find_by(short_code: code) ||
+      ShortLink.find_by(custom_slug: code)
   end
 end
