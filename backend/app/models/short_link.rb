@@ -11,8 +11,8 @@ class ShortLink < ApplicationRecord
   validates :short_code, presence: true, uniqueness: true, length: { minimum: 4, maximum: 20 },
             format: { with: /\A[a-zA-Z0-9]+\z/, message: "only letters and numbers allowed" }
   validates :custom_slug, uniqueness: true, allow_blank: true,
-            length: { minimum: 3, maximum: 20 },
-            format: { with: /\A[a-zA-Z0-9\-_]+\z/, message: "only letters, numbers, hyphens, and underscores" }
+            length: { minimum: 3, maximum: 20, allow_blank: true },
+            format: { with: /\A[a-zA-Z0-9\-_]+\z/, message: "only letters, numbers, hyphens, and underscores", allow_blank: true }
   validates :title, length: { maximum: 255 }, allow_blank: true
   validate :expires_at_must_be_in_future, if: -> { expires_at_changed? && expires_at.present? }
 

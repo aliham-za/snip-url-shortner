@@ -65,7 +65,10 @@ module Api
           end
         end
 
-        if @link.update(update_params)
+        cleaned = update_params.to_h
+        cleaned["custom_slug"] = nil if cleaned.key?("custom_slug") && cleaned["custom_slug"].blank?
+
+        if @link.update(cleaned)
           render json: ShortLinkBlueprint.render_as_hash(@link.reload, view: :with_stats)
         else
           render json: { errors: @link.errors.full_messages }, status: :unprocessable_entity
